@@ -5,23 +5,30 @@ import { Field, reduxForm } from 'redux-form';
 class PostNew extends Component {
   renderField(field) {
     return (
-      <div className='form-group'>
+      <div className='form-group has-danger'>
         <label>{field.label}</label>
         <input 
           className='form-control'
           type='text'
           {...field.input}
         />
-        {field.meta.error}
+        <div className='text-help'>
+          {field.meta.touched ? field.meta.error : ''}
+        </div>
       </div>
     );
   } 
 
- 
+  onSubmit(values) {
+    console.log(values);
+  }
+
+
   render() {
+    const { handleSubmit } = this.props;
     return (
       <div>
-        <form>
+        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <Field 
             label='Title For Post'
             name='title'
@@ -65,5 +72,4 @@ function validate(values) {
 export default reduxForm({
   validate,
   form: 'PostsNewForm'
-
 })(PostNew);
