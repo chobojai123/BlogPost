@@ -22,8 +22,8 @@ module.exports = {
   },
 
   deleteBlog(req, res) {
-    const driverId = req.params.id;
-    Blog.findByIdAndRemove({ _id: driverId.toString() })
+    const blogId = req.params.id.toString();
+    Blog.findByIdAndRemove({ _id: blogId })
       .then(driver => res.status(204).send(driver))
       .catch(err => res.status(400).send(err));
   },

@@ -11,7 +11,6 @@ const API_KEY = '?key=PAPERCHOBO123';
 export function fetchPosts() {
   // const request = axios.get(`${ROOT_URL}/posts${API_KEY}`);
   const request = axios.get('/blogs');
-  console.log(request);
   return {
     type: FETCH_POSTS,
     payload: request,
