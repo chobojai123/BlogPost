@@ -1,30 +1,24 @@
+const path = require('path');
+const SRC_DIR = path.join(__dirname, '/public/src')
+const DIST_DIR = path.join(__dirname, '/public/dist')
+
 module.exports = {
-  entry: ['./src/index.js'],
+  entry: `${SRC_DIR}/index.jsx`,
   output: {
-    path: __dirname,
-    publicPath: '/',
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    path: DIST_DIR
   },
   module: {
     loaders: [
       {
+        test: /\.jsx?/,
+        include: SRC_DIR,
         exclude: /node_modules/,
-        loader: 'babel',
-        query: {
-          presets: ['react', 'es2015', 'stage-1']
+        loader: 'babel-loader',
+        options: {
+          presets: ['env', 'react'],
         }
-      }
+      },
     ]
-  },
-  resolve: {
-    extensions: ['', '.js', '.jsx']
-  },
-  devServer: {
-    historyApiFallback: true,
-    contentBase: './',
-    watchOptions: {
-      aggregateTimeout: 300,
-      poll: 1000
-    }
   }
-};
+}

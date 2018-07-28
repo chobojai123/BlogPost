@@ -6,6 +6,12 @@ import { createPost } from '../actions';
 
 
 class PostNew extends Component {
+  onSubmit(values) {
+    this.props.createPost(values, () => {
+      this.props.history.push('/');      
+    });
+  }
+
   renderField(field) {
     const { meta: { touched, error } } = field;
     const className = `form-group ${touched && error ? 'has-danger' : ''}`;
@@ -24,13 +30,6 @@ class PostNew extends Component {
       </div>
     );
   } 
-
-  onSubmit(values) {
-    this.props.createPost(values, () => {
-      this.props.history.push('/');      
-    });
-  }
-
 
   render() {
     const { handleSubmit } = this.props;
@@ -80,7 +79,5 @@ function validate(values) {
 
 export default reduxForm({
   validate,
-  form: 'PostsNewForm'
-})(
-  connect(null, { createPost })(PostNew)
-);
+  form: 'PostsNewForm',
+})(connect(null, { createPost })(PostNew));
